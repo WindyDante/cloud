@@ -1,0 +1,60 @@
+syntax = "proto3"; 
+
+package user;
+
+// Go 特定选项：生成的 Go 包路径和包名
+// 格式：module_path/生成路径;包别名
+option go_package = "cloud/internal/gen/user;domain";
+
+// 导入 Google 提供的通用类型
+import "google/protobuf/timestamp.proto";   // 时间戳类型
+import "google/protobuf/field_mask.proto";  // 用于部分更新
+import "google/protobuf/empty.proto";       // 空响应
+
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string password = 4;        // 密码
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+  google.protobuf.Timestamp last_login_at = 7;
+}
+
+
+// 请求消息：创建用户
+message CreateUserRequest {
+  string username = 1;        // 必填字段
+  string password = 2;        // 密码
+}
+
+// 响应消息：用户信息
+message UserResponse {
+  string id = 1;              // 用户ID，通常是UUID
+  string username = 2;        // 用户名，必须唯一
+  string email = 3;           // 邮箱
+}
+
+
+// 请求消息：获取单个用户
+message GetUserRequest {
+  string id = 1;              // 通过ID获取
+}
+
+// 请求消息：更新用户
+message UpdateUserRequest {
+  User user = 1;                                // 包含要更新的用户数据
+  google.protobuf.FieldMask update_mask = 2;    // 指定要更新的字段
+  // update_mask 示例：paths: ["username", "email", "status"]
+}
+
+// 请求消息：删除用户
+message DeleteUserRequest {
+  string id = 1;
+}
+
+// 请求消息：用户登录
+message LoginRequest {
+  string username = 1;        // 用户名或邮箱
+  string password = 2;        // 密码
+}
