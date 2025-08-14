@@ -9,16 +9,16 @@ option go_package = "cloud/internal/gen/user;domain";
 // 导入 Google 提供的通用类型
 import "google/protobuf/timestamp.proto";   // 时间戳类型
 import "google/protobuf/field_mask.proto";  // 用于部分更新
-import "google/protobuf/empty.proto";       // 空响应
 
 message User {
-  string id = 1;
-  string username = 2;
-  string email = 3;
+  string id = 1; // 用户ID，通常是UUID
+  string username = 2; // 用户名，必须唯一
+  string email = 3; // 邮箱，必须唯一
   string password = 4;        // 密码
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp updated_at = 6;
-  google.protobuf.Timestamp last_login_at = 7;
+  google.protobuf.Timestamp created_at = 5; // 创建时间
+  google.protobuf.Timestamp updated_at = 6; // 更新时间
+  google.protobuf.Timestamp last_login_at = 7;  // 最后登录时间
+  bool is_delted = 8;        // 是否已删除
 }
 
 

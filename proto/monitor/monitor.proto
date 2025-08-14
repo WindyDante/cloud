@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package monitor;
+
+option go_package = "cloud/internal/gen/monitor;monitor";
+
+import "google/protobuf/timestamp.proto";
+
+// 网站实体
+message Website {
+  string id = 1;                                    // 网站ID
+  string name = 2;                                  // 网站名称（如：cpu_usage）
+  string description = 3;                           // 网站描述
+  string url = 4;                                   // 网站URL
+  google.protobuf.Timestamp created_at = 5; // 创建时间
+  google.protobuf.Timestamp updated_at = 6; // 更新时间
+  bool is_delted = 8;        // 是否已删除
+}
